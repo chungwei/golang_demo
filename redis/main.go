@@ -48,6 +48,14 @@ func bizHandler() {
 	i, err = GetRedisClient().IncrBy(ctx, "k3", 2).Result()
 	fmt.Println("incrby res int64:", i, err)
 
+	// decr
+	i, err = GetRedisClient().Decr(ctx, "k3").Result()
+	fmt.Println("decr res int64:", i, err)
+
+	// incr
+	i, err = GetRedisClient().Incr(ctx, "k3").Result()
+	fmt.Println("incr res int64:", i, err)
+
 	// lpush
 	i, err = GetRedisClient().LPush(ctx, "k4", `{"id": 1, "age": 23}`).Result()
 	fmt.Println("lpush res int64:", i, err)

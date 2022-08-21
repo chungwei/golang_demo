@@ -7,8 +7,8 @@ type RedisConf struct {
 
 func loadRedisConf() *RedisConf {
 	conf := new(RedisConf)
-	conf.Password = "abc123"
-	conf.Addr = "127.0.0.1:6379"
+	conf.Password = "X63&%e#8rf$^93fOpe"
+	conf.Addr = "8.142.157.45:6379"
 
 	return conf
 }
