@@ -13,7 +13,7 @@ import (
 
 func main() {
 	InitMysql(loadMysqlConf())
-	defer GetMysqlConn()
+	defer ReleaseMysqlConn()
 
 	bizHandler()
 }
@@ -50,17 +50,14 @@ func bizHandler() {
 	fmt.Println("updateUserInTrx res: row=", row, ",err=", err)
 
 	// select one/list
-	where = map[string]interface{}{"id": 100}
+	where = map[string]interface{}{"id": uid}
 	users, err := queryUserList(ctx, where) // list
-	if err != nil || len(users) == 0 {
-		return
-	}
-	user = users[0] // one
-	fmt.Println(user)
+	user = users[0]                         // one
+	fmt.Println("queryUserList:", user)
 
 	// select in
-	users, err = queryUserListInIds(ctx, []int64{1, 2, 3, 4}) // list
-	fmt.Println(users)
+	users, err = queryUserListInIds(ctx, []int64{1000, 2, 1003, 4}) // list
+	fmt.Println("queryUserListInIds", users)
 
 }
 
@@ -120,11 +117,10 @@ func queryUserList(ctx context.Context, where map[string]interface{}) (users []*
 		whereStr += fmt.Sprintf("%v = :%v AND ", k, k)
 	}
 
-	qs := "SELECT SELECT id, username, mobile, create_time FROM b_user" +
+	qs := "SELECT id, username, mobile, create_time FROM b_user" +
 		" WHERE " + strings.TrimRight(whereStr, " AND ") +
 		" ORDER BY id DESC" +
 		" LIMIT 1000"
-
 	nstmt, err := conn.PrepareNamed(qs)
 	defer ReleaseStmt(nstmt)
 	if err != nil {

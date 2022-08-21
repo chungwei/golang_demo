@@ -9,7 +9,7 @@ type MysqlConf struct {
 
 func loadMysqlConf() *MysqlConf {
 	conf := new(MysqlConf)
-	conf.Dsn = "bulleap_rw:xxxx1111@tcp(203.195.1.1:3306)/dbname?charset=utf8&timeout=2000ms"
+	conf.Dsn = "bulleap_rw:xxxxxxxx@tcp(203.1.1.1:3306)/dbname?charset=utf8&timeout=2000ms"
 	conf.Retry = 1
 	conf.PoolMaxIdleConn = 3
 	conf.PoolMaxOpenConn = 10
