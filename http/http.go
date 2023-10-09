@@ -94,11 +94,11 @@ func doHttpRequest(ctx context.Context, m string, url string, ps map[string]inte
 		}
 		request, err = http.NewRequest(http.MethodPost, url, strings.NewReader(q))
 	}
-	if err != nil {
-		return nil, errors.New("doHttpRequest Marshal/NewRequest fail")
+	if err != nil || request == nil {
+		return nil, errors.New("NewRequest fail")
 	}
 	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-
+	request.Close = true
 	resp, err := hc.Do(request)
 	if err != nil || resp == nil || resp.Body == nil {
 		err = fmt.Errorf("doHttpRequest fail,err=%v", err)
