@@ -9,7 +9,7 @@ type HttpClientConf struct {
 	AppSecret string   `toml:"app_secret"`
 }
 
-func loadHttpClientConf() *HttpClientConf {
+func InitHttpClientConf() *HttpClientConf {
 	if conf != nil {
 		return conf
 	}
