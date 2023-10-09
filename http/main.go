@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	InitHttpClient(loadHttpClientConf())
+	InitHttpClient(InitHttpClientConf())
 
 	bizHandler()
 }
